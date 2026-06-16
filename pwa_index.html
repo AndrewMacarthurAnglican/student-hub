@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Hub</title>
+  <meta name="description" content="Your personal student productivity dashboard"/>
+  <meta name="theme-color" content="#378ADD"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="icon-192.png"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;background:#fff;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+    #root{max-width:640px;margin:0 auto;padding:1.25rem 1rem}
+    input,select,button{font-family:inherit}
+    @media(prefers-color-scheme:dark){body{background:#111;color:#f0f0f0}}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
+</body>
+</html>

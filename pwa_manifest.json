@@ -1,0 +1,10 @@
+{
+  "name": "Student Hub",
+  "short_name": "Student Hub",
+  "description": "Your personal student productivity dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#378ADD",
+  "orientation": "portrait",
+}
