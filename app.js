@@ -3,7 +3,16 @@ const { useState, useEffect, useRef, useCallback } = React;
 
 const PRIORITIES = ["High","Medium","Low"];
 const P_DOT = {High:"#E24B4A",Medium:"#EF9F27",Low:"#639922"};
-const SUBJECT_COLORS = ["#378ADD","#639922","#E24B4A","#EF9F27","#9B59B6","#1D9E75","#D85A30","#185FA5"];
+const SUBJECT_COLORS = [
+  "#378ADD","#185FA5","#5AC8FA","#34AADC","#007AFF",
+  "#639922","#1D9E75","#4CD964","#8BC34A","#2ECC71",
+  "#E24B4A","#FF3B30","#FF6B6B","#E91E63","#C0392B",
+  "#EF9F27","#FF9500","#FFCC00","#FF6D00","#F39C12",
+  "#9B59B6","#8E44AD","#BF5FFF","#673AB7","#6C5CE7",
+  "#D85A30","#FF5722","#FF7043","#E65100","#A0522D",
+  "#1ABC9C","#16A085","#00BCD4","#0097A7","#00897B",
+  "#FF2D78","#E91E8C","#FF4081","#AD1457","#880E4F",
+];
 
 function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return h>0?`${h}h ${String(m).padStart(2,"0")}m`:`${String(m).padStart(2,"0")}:${String(sc).padStart(2,"0")}`;}
 function isToday(d){if(!d)return false;return new Date(d).toDateString()===new Date().toDateString();}
@@ -16,10 +25,11 @@ function ls(k,v){if(v===undefined){try{const r=localStorage.getItem("sh_"+k);ret
 const style = document.createElement("style");
 style.textContent = `
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;overscroll-behavior:none;overflow-x:hidden;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',sans-serif;overscroll-behavior:none;overflow-x:hidden;transition:background 0.3s ease,color 0.3s ease;}
   input,select,button,textarea{font-family:inherit;}
   input[type=date]{-webkit-appearance:none;}
   ::-webkit-scrollbar{display:none;}
+  .theme-trans{transition:background 0.3s ease,color 0.3s ease,border-color 0.3s ease,box-shadow 0.3s ease;}
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
   @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
@@ -86,7 +96,11 @@ function App(){
     card: dark?"#1c1c1e":"#ffffff",
   };
 
-  useEffect(()=>{document.body.style.background=C.bg;},[dark]);
+  useEffect(()=>{
+    document.body.style.background=C.bg;
+    document.body.style.color=C.text;
+    document.documentElement.style.background=C.bg;
+  },[dark]);
   useEffect(()=>{ls("darkMode",dark);},[dark]);
   useEffect(()=>{ls("tasks",tasks);},[tasks]);
   useEffect(()=>{ls("subjects",subjects);},[subjects]);
@@ -148,7 +162,8 @@ function App(){
   const vLabels={tasks:"Tasks",pomodoro:"Focus",grades:"Grades",exams:"Exams",streak:"Streak"};
   const pomoColor=pomo.mode==="work"?"#378ADD":pomo.mode==="shortBreak"?"#639922":"#9B59B6";
 
-  return e("div",{style:{color:C.text,minHeight:"100vh",background:C.bg,paddingBottom:32}},
+  const themeStyle={color:C.text,minHeight:"100vh",background:C.bg,paddingBottom:32,transition:"background 0.3s ease,color 0.3s ease"};
+  return e("div",{style:themeStyle},
     // Header
     e("div",{style:{padding:"16px 16px 0",display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:16}},
       e("div",null,
